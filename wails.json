@@ -1,6 +1,6 @@
 {
-  "name": "wailsnav",
-  "outputfilename": "wailsnav",
+  "name": "cloudnav",
+  "outputfilename": "cloudnav",
   "frontend:install": "pnpm install",
   "frontend:build": "pnpm run build",
   "frontend:dev:watcher": "pnpm run dev",

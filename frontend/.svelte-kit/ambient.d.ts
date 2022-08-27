@@ -46,6 +46,7 @@ declare module '$env/static/private' {
 	export const LSCOLORS: string;
 	export const npm_package_devDependencies__typescript_eslint_parser: string;
 	export const PATH: string;
+	export const LaunchInstanceID: string;
 	export const __CFBundleIdentifier: string;
 	export const PWD: string;
 	export const JAVA_HOME: string;
@@ -79,6 +80,7 @@ declare module '$env/static/private' {
 	export const npm_config_user_agent: string;
 	export const DISPLAY: string;
 	export const LC_TERMINAL: string;
+	export const SECURITYSESSIONID: string;
 	export const npm_package_scripts_check: string;
 	export const COLORTERM: string;
 	export const npm_node_execpath: string;

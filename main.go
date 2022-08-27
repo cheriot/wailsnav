@@ -3,6 +3,7 @@ package main
 import (
 	"embed"
 	"log"
+	"wailsnav/pkg/controllers"
 
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/logger"
@@ -17,11 +18,12 @@ var assets embed.FS
 func main() {
 	// Create an instance of the app structure
 	app := NewApp()
+	kube := &controllers.Kube{}
 
 	// Create application with options
 	// Create application with options
 	err := wails.Run(&options.App{
-		Title:             "wailsnav",
+		Title:             "cloudnav",
 		Width:             1024,
 		Height:            768,
 		MinWidth:          1024,
@@ -45,6 +47,7 @@ func main() {
 		WindowStartState:  options.Normal,
 		Bind: []interface{}{
 			app,
+			kube,
 		},
 		// Windows platform specific options
 		Windows: &windows.Options{
@@ -68,7 +71,7 @@ func main() {
 			WebviewIsTransparent: true,
 			WindowIsTranslucent:  true,
 			About: &mac.AboutInfo{
-				Title:   "wailsnav",
+				Title:   "cloudnav",
 				Message: "",
 			},
 		},

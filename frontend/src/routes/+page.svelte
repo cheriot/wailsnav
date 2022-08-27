@@ -1,30 +1,17 @@
 <script lang="ts">
-  import { Greet } from '$lib/wailsjs/go/main/App'
-  let name = ''
-  let g: Promise<string>|null = null
+  import { ContextList } from '$lib/wailsjs/go/controllers/Kube';
 
-  function onClick() {
-    if (name == '') {
-      g = null
-    } else {
-      g = Greet(name)
-    }
-  }
+  let ctxListP = ContextList();
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-
-<div>Please enter your name below 👇</div>
-<input type="text" bind:value={name}/> <button on:click={onClick}>Great</button>
+<h1>Select a kubernetes context:</h1>
 
 <div>
-  {#if g}
-    {#await g}
-      loading
-    {:then value }
-      { value }
-    {/await}
-  {/if}
+  {#await ctxListP}
+    loading
+  {:then ctxList}
+    {ctxList}
+  {/await}
 </div>
 
 <div>
