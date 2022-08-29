@@ -10,7 +10,7 @@
   {#await ctxListP}
     loading
   {:then ctxList}
-    {ctxList}
+    <a href="/ctx/somename">{ctxList}</a>
   {/await}
 </div>
 
