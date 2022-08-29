@@ -4,3 +4,4 @@ frontend/.svelte-kit
 build/bin
 build/darwin
 build/windows
+.vscode

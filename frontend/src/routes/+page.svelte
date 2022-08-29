@@ -10,7 +10,11 @@
   {#await ctxListP}
     loading
   {:then ctxList}
-    <a href="/ctx/somename">{ctxList}</a>
+    <ul>
+      {#each ctxList as ctx}
+        <li><a href="/ctx/{ctx}">{ctx}</a></li>
+      {/each}
+    </ul>
   {/await}
 </div>
 

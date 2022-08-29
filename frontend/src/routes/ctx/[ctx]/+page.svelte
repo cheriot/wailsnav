@@ -4,5 +4,3 @@
 </script>
 
 <h1>{data.ctx} overview</h1>
-
-{@debug data}
