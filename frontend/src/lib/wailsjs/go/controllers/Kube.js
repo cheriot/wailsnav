@@ -5,3 +5,11 @@
 export function ContextList() {
   return window['go']['controllers']['Kube']['ContextList']();
 }
+
+export function NamespaceList(arg1) {
+  return window['go']['controllers']['Kube']['NamespaceList'](arg1);
+}
+
+export function OnStartup(arg1) {
+  return window['go']['controllers']['Kube']['OnStartup'](arg1);
+}
