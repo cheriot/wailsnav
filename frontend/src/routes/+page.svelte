@@ -1,13 +1,12 @@
 <script lang="ts">
-  import { ContextList } from '$lib/wailsjs/go/controllers/Kube';
-
-  let ctxListP = ContextList();
+  import type { PageData } from './$types';
+  export let data: PageData;
 </script>
 
 <h1>Select a kubernetes context:</h1>
 
 <div>
-  {#await ctxListP}
+  {#await data.ctxListP}
     loading
   {:then ctxList}
     <ul>

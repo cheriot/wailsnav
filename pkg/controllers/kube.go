@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/cheriot/kubenav/pkg/app"
 
