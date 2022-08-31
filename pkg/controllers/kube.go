@@ -40,3 +40,18 @@ func (k *Kube) NamespaceList(ctxParam string) []string {
 	}
 	return nsList
 }
+
+func (k *Kube) ResourceList(ctx string, ns string, query string) []app.ResourceTable {
+	kubeCluster, err := app.GetOrMakeKubeCluster(k.ctx, ctx)
+	if err != nil {
+		wailsruntime.LogErrorf(k.ctx, "error getting cluster for name %s: %s", ctx, err.Error())
+		return []app.ResourceTable{}
+	}
+
+	resourceTables, err := kubeCluster.Query(k.ctx, ns, query)
+	if err != nil {
+		wailsruntime.LogErrorf(k.ctx, "error during query for %s %s %s: %s", ctx, ns, query, err.Error())
+		// return the tables. Maybe the error is for only one of them.
+	}
+	return resourceTables
+}

@@ -10,7 +10,7 @@
 {:then nsList}
   <ul>
     {#each nsList as ns}
-      <li>{ns}</li>
+      <li><a href="/ctx/{data.ctx}/ns/{ns}">{ns}</a></li>
     {/each}
   </ul>
 {/await}

@@ -13,3 +13,7 @@ export function NamespaceList(arg1) {
 export function OnStartup(arg1) {
   return window['go']['controllers']['Kube']['OnStartup'](arg1);
 }
+
+export function ResourceList(arg1, arg2, arg3) {
+  return window['go']['controllers']['Kube']['ResourceList'](arg1, arg2, arg3);
+}
