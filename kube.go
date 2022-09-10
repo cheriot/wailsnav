@@ -1,4 +1,4 @@
-package controllers
+package main
 
 import (
 	"context"
@@ -54,4 +54,20 @@ func (k *Kube) ResourceList(ctx string, ns string, query string) []app.ResourceT
 		// return the tables. Maybe the error is for only one of them.
 	}
 	return resourceTables
+}
+
+func (k *Kube) Describe(ctx string, ns string, kind string, name string) string {
+	kubeCluster, err := app.GetOrMakeKubeCluster(k.ctx, ctx)
+	if err != nil {
+		wailsruntime.LogErrorf(k.ctx, "error getting cluster for name %s: %s", ctx, err.Error())
+		return ""
+	}
+
+	describeStr, err := kubeCluster.Describe(k.ctx, ns, kind, name)
+	if err != nil {
+		wailsruntime.LogErrorf(k.ctx, "error describing %s %s %s %s: %+v", ctx, ns, kind, name, err)
+		return ""
+	}
+
+	return describeStr
 }

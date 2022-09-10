@@ -5,6 +5,8 @@ import {app} from '../models';
 
 export function ContextList():Promise<Array<string>>;
 
+export function Describe(arg1:string,arg2:string,arg3:string,arg4:string):Promise<string>;
+
 export function NamespaceList(arg1:string):Promise<Array<string>>;
 
 export function OnStartup(arg1:context.Context):void;

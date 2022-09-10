@@ -4,7 +4,6 @@ import (
 	"context"
 	"embed"
 	"log"
-	"wailsnav/pkg/controllers"
 
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/logger"
@@ -19,7 +18,7 @@ var assets embed.FS
 func main() {
 	// Create an instance of the app structure
 	app := NewApp()
-	kube := &controllers.Kube{}
+	kube := &Kube{}
 
 	// Create application with options
 	// Create application with options

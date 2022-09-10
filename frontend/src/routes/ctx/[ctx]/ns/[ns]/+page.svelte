@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { v1 } from '$lib/wailsjs/go/models';
   import type { PageData } from './$types';
+  import { kindName } from '$lib/urls';
 
   export let data: PageData;
 
@@ -16,6 +17,7 @@
     <p>{rt.apiResource.name} {resourceSubtitle(rt.apiResource)}</p>
     <p>TODO handle rt.IsError</p>
 
+    <td>{@debug rt}</td>
     {#if rt.table}
       <table>
         <tr>
@@ -24,9 +26,20 @@
           {/each}
         </tr>
 
-        {#each rt.table.rows as r}
-          {#each r.cells as cell}
-            <td>{cell}</td>
+        {#each rt.table.rows as r, rIdx}
+          {#each r.cells as cell, colIdx}
+            <td>
+              {#if colIdx == 0}
+                <a
+                  href="/ctx/{data.ctx}/ns/{data.ns}/obj/{kindName(
+                    rt.apiResource.kind,
+                    rt.tableRowNames[rIdx]
+                  )}">{cell}</a
+                >
+              {:else}
+                {cell}
+              {/if}
+            </td>
           {/each}
         {/each}
       </table>
