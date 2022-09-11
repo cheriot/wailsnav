@@ -71,3 +71,19 @@ func (k *Kube) Describe(ctx string, ns string, kind string, name string) string 
 
 	return describeStr
 }
+
+func (k *Kube) Yaml(ctx string, ns string, kind string, name string) string {
+	kubeCluster, err := app.GetOrMakeKubeCluster(k.ctx, ctx)
+	if err != nil {
+		wailsruntime.LogErrorf(k.ctx, "error getting cluster for name %s: %s", ctx, err.Error())
+		return ""
+	}
+
+	yamlStr, err := kubeCluster.Yaml(k.ctx, ns, kind, name)
+	if err != nil {
+		wailsruntime.LogErrorf(k.ctx, "error getting yaml for %s %s %s %s: %s", ctx, ns, kind, name, err.Error())
+		return ""
+	}
+
+	return yamlStr
+}

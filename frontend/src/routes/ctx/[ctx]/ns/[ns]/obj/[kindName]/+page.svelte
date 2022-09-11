@@ -11,3 +11,9 @@
 {:then describeStr}
   <pre>{describeStr}</pre>
 {/await}
+
+{#await data.yamlP}
+  <p>loading</p>
+{:then yamlStr}
+  <pre>{yamlStr}</pre>
+{/await}

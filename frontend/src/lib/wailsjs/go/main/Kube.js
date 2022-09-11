@@ -21,3 +21,7 @@ export function OnStartup(arg1) {
 export function ResourceList(arg1, arg2, arg3) {
   return window['go']['main']['Kube']['ResourceList'](arg1, arg2, arg3);
 }
+
+export function Yaml(arg1, arg2, arg3, arg4) {
+  return window['go']['main']['Kube']['Yaml'](arg1, arg2, arg3, arg4);
+}

@@ -12,3 +12,5 @@ export function NamespaceList(arg1:string):Promise<Array<string>>;
 export function OnStartup(arg1:context.Context):void;
 
 export function ResourceList(arg1:string,arg2:string,arg3:string):Promise<Array<app.ResourceTable>>;
+
+export function Yaml(arg1:string,arg2:string,arg3:string,arg4:string):Promise<string>;
