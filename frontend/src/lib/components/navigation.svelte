@@ -19,6 +19,11 @@
   }
 </script>
 
+<div>
+  <button class="button" on:click={(e) => history.back()}>&lt;</button>
+  <button class="button" on:click={(e) => history.forward()}>&gt;</button>
+</div>
+
 <nav class="breadcrumb" aria-label="breadcrumbs">
   <ul>
     {#each breadcrumbs as { name, href, isActive }}
