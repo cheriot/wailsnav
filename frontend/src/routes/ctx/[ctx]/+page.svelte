@@ -1,7 +1,11 @@
 <script lang="ts">
   import type { PageData } from './$types';
+  import Navigation from '$lib/components/navigation.svelte';
+
   export let data: PageData;
 </script>
+
+<Navigation ctx={data.ctx} />
 
 <h1>{data.ctx} overview</h1>
 

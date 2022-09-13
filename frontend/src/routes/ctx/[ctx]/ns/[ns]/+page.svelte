@@ -2,6 +2,7 @@
   import type { v1 } from '$lib/wailsjs/go/models';
   import type { PageData } from './$types';
   import { kindName } from '$lib/urls';
+  import Navigation from '$lib/components/navigation.svelte';
 
   export let data: PageData;
 
@@ -10,6 +11,8 @@
   }
 </script>
 
+<Navigation ctx={data.ctx} ns={data.ns} />
+
 {#await data.resourceTablesP}
   loading
 {:then resourceTables}
@@ -17,7 +20,6 @@
     <p>{rt.apiResource.name} {resourceSubtitle(rt.apiResource)}</p>
     <p>TODO handle rt.IsError</p>
 
-    <td>{@debug rt}</td>
     {#if rt.table}
       <table>
         <tr>
