@@ -6,6 +6,6 @@ export const load: PageLoad = async (pageLoad) => {
   return {
     ctx: ctx,
     ns: ns,
-    resourceTablesP: ResourceList(ctx, ns, 'all') // TODO Why doesn't "po" work?
+    resourceTablesP: ResourceList(ctx, ns, 'all')
   };
 };

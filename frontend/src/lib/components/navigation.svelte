@@ -45,8 +45,7 @@
           }
           break;
         case 'query':
-          // TODO need a query page so go to the namespace page for now
-          return goto(`/ctx/${ctx}/ns/${r.ns}`);
+          return goto(`/ctx/${ctx}/ns/${r.ns}/query?q=${r.query}`);
           break;
         case 'obj':
           if (r.kind == 'Namespace') {
