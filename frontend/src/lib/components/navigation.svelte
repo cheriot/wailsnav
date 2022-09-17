@@ -28,10 +28,7 @@
   }
 
   function onSubmit() {
-    console.log('query', cmd, ctx, ns, kind);
     let p = Command(ctx, ns, kind, cmd).then((r) => {
-      console.log('response', r);
-
       switch (r.commandResultType) {
         case 'ctx':
           if (r.name) {
@@ -62,8 +59,21 @@
     });
     p.then(() => {
       cmd = '';
-      console.log('clear');
     });
+  }
+
+  let cmdInput: HTMLInputElement;
+  function onKeyDown(event: KeyboardEvent) {
+    switch (event.code) {
+      case 'Semicolon':
+        cmdInput.focus();
+        event.preventDefault();
+        break;
+      case 'Escape':
+        cmd = '';
+        cmdInput.blur();
+        break;
+    }
   }
 </script>
 
@@ -85,5 +95,7 @@
 </nav>
 
 <form on:submit|preventDefault={onSubmit}>
-  <input type="text" bind:value={cmd} />
+  <input type="text" bind:value={cmd} bind:this={cmdInput} />
 </form>
+
+<svelte:window on:keydown={onKeyDown} />
