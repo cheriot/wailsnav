@@ -3,23 +3,41 @@
   import Navigation from '$lib/components/navigation.svelte';
 
   export let data: PageData;
+
+  let describeTab = { isActive: true, name: 'Describe', dataP: data.describeP };
+  let yamlTab = { isActive: false, name: 'Yaml', dataP: data.yamlP };
+  let tabs = [describeTab, yamlTab];
+  $: activeTab = tabs.find((tab) => tab.isActive);
+
+  function selectTab(tab: { isActive: boolean; name: string; dataP: Promise<string> }) {
+    tabs = tabs.map((t) => {
+      t.isActive = false;
+      return t;
+    });
+    tab.isActive = true;
+  }
 </script>
 
 <Navigation ctx={data.ctx} ns={data.ns} kind={data.kind} title={data.name} />
 
 <div class="section">
   <div class="container">
-    <h1>{data.kind}/{data.name}</h1>
-    {#await data.describeP}
-      <p>loading</p>
-    {:then describeStr}
-      <pre>{describeStr}</pre>
-    {/await}
+    <h1 class="title">{data.name}</h1>
+    <h2 class="subtitle">{data.kind}</h2>
 
-    {#await data.yamlP}
+    <div class="tabs is-fullwidth">
+      <ul>
+        {#each tabs as tab}
+          <li class:is-active={tab.isActive}>
+            <a href="" on:click={selectTab(tab)}>{tab.name}</a>
+          </li>
+        {/each}
+      </ul>
+    </div>
+    {#await activeTab?.dataP}
       <p>loading</p>
-    {:then yamlStr}
-      <pre>{yamlStr}</pre>
+    {:then dataStr}
+      <pre>{dataStr}</pre>
     {/await}
   </div>
 </div>
