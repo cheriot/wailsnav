@@ -9,23 +9,30 @@
   export let kind = '';
   export let title = '';
 
-  let breadcrumbs: { name: string; href: string; isActive: boolean }[] = [];
-  if (ctx) {
-    breadcrumbs.push({ name: ctx, href: `/ctx/${ctx}`, isActive: false });
+  function buildBreadcrumbs(ctx: string, ns: string, kind: string, title: string) {
+    let breadcrumbs: { name: string; href: string; isActive: boolean }[] = [];
+
+    if (ctx) {
+      breadcrumbs.push({ name: ctx, href: `/ctx/${ctx}`, isActive: false });
+    }
+    if (ns) {
+      breadcrumbs.push({ name: ns, href: `/ctx/${ctx}/ns/${ns}`, isActive: false });
+    }
+    if (kind) {
+      breadcrumbs.push({ name: kind, href: '', isActive: false });
+    }
+    if (title) {
+      breadcrumbs.push({ name: title, href: '', isActive: false });
+    }
+    if (breadcrumbs.length > 0) {
+      breadcrumbs.unshift({ name: 'ctx', href: '/', isActive: false });
+      breadcrumbs[breadcrumbs.length - 1].isActive = true;
+    }
+
+    return breadcrumbs;
   }
-  if (ns) {
-    breadcrumbs.push({ name: ns, href: `/ctx/${ctx}/ns/${ns}`, isActive: false });
-  }
-  if (kind) {
-    breadcrumbs.push({ name: kind, href: '', isActive: false });
-  }
-  if (title) {
-    breadcrumbs.push({ name: title, href: '', isActive: false });
-  }
-  if (breadcrumbs.length > 0) {
-    breadcrumbs.unshift({ name: 'ctx', href: '/', isActive: false });
-    breadcrumbs[breadcrumbs.length - 1].isActive = true;
-  }
+
+  $: breadcrumbs = buildBreadcrumbs(ctx, ns, kind, title);
 
   function onSubmit() {
     let p = Command(ctx, ns, kind, cmd).then((r) => {
@@ -77,25 +84,27 @@
   }
 </script>
 
-<div>
-  <button class="button" on:click={(e) => history.back()}>&lt;</button>
-  <button class="button" on:click={(e) => history.forward()}>&gt;</button>
-</div>
-
-<nav class="breadcrumb" aria-label="breadcrumbs">
-  <ul>
-    {#each breadcrumbs as { name, href, isActive }}
-      {#if isActive}
-        <li class="is-active"><a {href} aria-current="page"> {name}</a></li>
-      {:else}
-        <li><a {href}> {name}</a></li>
-      {/if}
-    {/each}
-  </ul>
-</nav>
-
-<form on:submit|preventDefault={onSubmit}>
-  <input type="text" bind:value={cmd} bind:this={cmdInput} />
-</form>
-
 <svelte:window on:keydown={onKeyDown} />
+
+<div class="section">
+  <div>
+    <button class="button" on:click={(e) => history.back()}>&lt;</button>
+    <button class="button" on:click={(e) => history.forward()}>&gt;</button>
+  </div>
+
+  <nav class="breadcrumb" aria-label="breadcrumbs">
+    <ul>
+      {#each breadcrumbs as { name, href, isActive }}
+        {#if isActive}
+          <li class="is-active"><a {href} aria-current="page"> {name}</a></li>
+        {:else}
+          <li><a {href}> {name}</a></li>
+        {/if}
+      {/each}
+    </ul>
+  </nav>
+
+  <form on:submit|preventDefault={onSubmit}>
+    <input type="text" bind:value={cmd} bind:this={cmdInput} />
+  </form>
+</div>
