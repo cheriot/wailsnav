@@ -1,12 +1,11 @@
 <script lang="ts">
-  import type { v1 } from '$lib/wailsjs/go/models';
   import type { PageData } from './$types';
   import Navigation from '$lib/components/navigation.svelte';
 
   export let data: PageData;
 </script>
 
-<Navigation ctx={data.ctx} ns={data.ns} title={data.name} />
+<Navigation ctx={data.ctx} ns={data.ns} kind={data.kind} title={data.name} />
 
 <h1>{data.kind}/{data.name}</h1>
 {#await data.describeP}

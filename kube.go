@@ -87,3 +87,15 @@ func (k *Kube) Yaml(ctx string, ns string, kind string, name string) string {
 
 	return yamlStr
 }
+
+func (k *Kube) Command(ctx string, ns string, query string, cmd string) app.CommandResult {
+	kubeCluster, err := app.GetOrMakeKubeCluster(k.ctx, ctx)
+	if err != nil {
+		wailsruntime.LogErrorf(k.ctx, "error getting cluster for name %s: %s", ctx, err.Error())
+		return app.ErrorCommandResult("error getting cluster context")
+	}
+
+	r := kubeCluster.Command(k.ctx, ns, query, cmd)
+	wailsruntime.LogInfof(k.ctx, "command '%s': %+v", cmd, r)
+	return r
+}

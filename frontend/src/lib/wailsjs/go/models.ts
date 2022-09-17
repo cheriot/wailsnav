@@ -1,5 +1,27 @@
 export namespace app {
 	
+	export class CommandResult {
+	    commandResultType: string;
+	    ns: string;
+	    kind: string;
+	    query: string;
+	    name: string;
+	    error: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new CommandResult(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.commandResultType = source["commandResultType"];
+	        this.ns = source["ns"];
+	        this.kind = source["kind"];
+	        this.query = source["query"];
+	        this.name = source["name"];
+	        this.error = source["error"];
+	    }
+	}
 	export class ResourceTable {
 	    apiResource: v1.APIResource;
 	    table?: v1.Table;
