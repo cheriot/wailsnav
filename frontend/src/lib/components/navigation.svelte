@@ -86,25 +86,40 @@
 
 <svelte:window on:keydown={onKeyDown} />
 
-<div class="section">
-  <div>
-    <button class="button" on:click={(e) => history.back()}>&lt;</button>
-    <button class="button" on:click={(e) => history.forward()}>&gt;</button>
+<nav class="navbar" aria-label="main navigation">
+  <div class="navbar-start">
+    <div class="navbar-item back-fwd-controls">
+      <button class="button" on:click={(e) => history.back()}>&lt;</button>
+      <button class="button" on:click={(e) => history.forward()}>&gt;</button>
+    </div>
+
+    <div class="navbar-item breadcrumb" aria-label="breadcrumbs">
+      <ul>
+        {#each breadcrumbs as { name, href, isActive }}
+          {#if isActive}
+            <li class="is-active"><a {href} aria-current="page"> {name}</a></li>
+          {:else}
+            <li><a {href}> {name}</a></li>
+          {/if}
+        {/each}
+      </ul>
+    </div>
+
+    <div class="navbar-item">
+      <form on:submit|preventDefault={onSubmit}>
+        <input type="text" bind:value={cmd} bind:this={cmdInput} />
+      </form>
+    </div>
   </div>
 
-  <nav class="breadcrumb" aria-label="breadcrumbs">
-    <ul>
-      {#each breadcrumbs as { name, href, isActive }}
-        {#if isActive}
-          <li class="is-active"><a {href} aria-current="page"> {name}</a></li>
-        {:else}
-          <li><a {href}> {name}</a></li>
-        {/if}
-      {/each}
-    </ul>
-  </nav>
+  <div class="navbar-end" />
+</nav>
 
-  <form on:submit|preventDefault={onSubmit}>
-    <input type="text" bind:value={cmd} bind:this={cmdInput} />
-  </form>
-</div>
+<style>
+  .back-fwd-controls {
+    margin: 1em 0 1em 1em;
+  }
+  .navbar-item.breadcrumb {
+    margin: 0;
+  }
+</style>

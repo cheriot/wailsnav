@@ -7,14 +7,18 @@
 
 <Navigation ctx={data.ctx} />
 
-<h1>{data.ctx} overview</h1>
+<div class="section">
+  <div class="container">
+    <h1 class="title">{data.ctx} overview</h1>
 
-{#await data.nsListP}
-  loading
-{:then nsList}
-  <ul>
-    {#each nsList as ns}
-      <li><a href="/ctx/{data.ctx}/ns/{ns}">{ns}</a></li>
-    {/each}
-  </ul>
-{/await}
+    {#await data.nsListP}
+      loading
+    {:then nsList}
+      <ul>
+        {#each nsList as ns}
+          <li><a href="/ctx/{data.ctx}/ns/{ns}">{ns}</a></li>
+        {/each}
+      </ul>
+    {/await}
+  </div>
+</div>

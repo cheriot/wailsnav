@@ -5,22 +5,20 @@
   export let data: PageData;
 </script>
 
-<Navigation />
+<div class="section">
+  <div class="container">
+    <h1 class="title">Select a kubernetes context</h1>
 
-<h1>Select a kubernetes context:</h1>
-
-<div>
-  {#await data.ctxListP}
-    loading
-  {:then ctxList}
-    <ul>
-      {#each ctxList as ctx}
-        <li><a href="/ctx/{ctx}">{ctx}</a></li>
-      {/each}
-    </ul>
-  {/await}
-</div>
-
-<div>
-  <a href="/about">About</a>
+    <div>
+      {#await data.ctxListP}
+        loading
+      {:then ctxList}
+        <ul>
+          {#each ctxList as ctx}
+            <li><a href="/ctx/{ctx}">{ctx}</a></li>
+          {/each}
+        </ul>
+      {/await}
+    </div>
+  </div>
 </div>

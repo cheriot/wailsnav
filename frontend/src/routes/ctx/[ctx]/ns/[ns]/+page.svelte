@@ -13,38 +13,43 @@
 
 <Navigation ctx={data.ctx} ns={data.ns} />
 
-{#await data.resourceTablesP}
-  loading
-{:then resourceTables}
-  {#each resourceTables as rt}
-    <p>{rt.apiResource.name} {resourceSubtitle(rt.apiResource)}</p>
-    <p>TODO handle rt.IsError</p>
+<div class="section">
+  <div class="container">
+    {#await data.resourceTablesP}
+      loading
+    {:then resourceTables}
+      {#each resourceTables as rt}
+        <h1 class="title">{rt.apiResource.name}</h1>
+        <h2 class="subtitle">{resourceSubtitle(rt.apiResource)}</h2>
+        <p>TODO handle rt.IsError</p>
 
-    {#if rt.table}
-      <table>
-        <tr>
-          {#each rt.table.columnDefinitions as cd}
-            <th>{cd.name}</th>
-          {/each}
-        </tr>
+        {#if rt.table}
+          <table class="table">
+            <tr>
+              {#each rt.table.columnDefinitions as cd}
+                <th>{cd.name}</th>
+              {/each}
+            </tr>
 
-        {#each rt.table.rows as r, rIdx}
-          {#each r.cells as cell, colIdx}
-            <td>
-              {#if colIdx == 0}
-                <a
-                  href="/ctx/{data.ctx}/ns/{data.ns}/obj/{kindName(
-                    rt.apiResource.kind,
-                    rt.tableRowNames[rIdx]
-                  )}">{cell}</a
-                >
-              {:else}
-                {cell}
-              {/if}
-            </td>
-          {/each}
-        {/each}
-      </table>
-    {/if}
-  {/each}
-{/await}
+            {#each rt.table.rows as r, rIdx}
+              {#each r.cells as cell, colIdx}
+                <td>
+                  {#if colIdx == 0}
+                    <a
+                      href="/ctx/{data.ctx}/ns/{data.ns}/obj/{kindName(
+                        rt.apiResource.kind,
+                        rt.tableRowNames[rIdx]
+                      )}">{cell}</a
+                    >
+                  {:else}
+                    {cell}
+                  {/if}
+                </td>
+              {/each}
+            {/each}
+          </table>
+        {/if}
+      {/each}
+    {/await}
+  </div>
+</div>
