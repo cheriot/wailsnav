@@ -5,9 +5,9 @@
 
   export let data: PageData;
 
-  function toItems(nsList: string[]): { name: string; path: string }[] {
+  function toItems(nsList: string[]): { name: string; href: string }[] {
     return nsList.map((ns) => {
-      return { name: ns, path: `/ctx/${data.ctx}/ns/${ns}` };
+      return { name: ns, href: `/ctx/${data.ctx}/ns/${ns}` };
     });
   }
 </script>

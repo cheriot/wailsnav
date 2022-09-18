@@ -1,52 +1,101 @@
 <script lang="ts">
   import { kindName } from '$lib/urls';
   import type { app, v1 } from '$lib/wailsjs/go/models';
+  import { keyboardListOnKeyDown } from '$lib/keyboardList';
 
   export let resourceTables: app.ResourceTable[];
   export let ctx: string;
   export let ns: string;
 
-  function resourceSubtitle(apiResource: v1.APIResource) {
-    return (apiResource.group ?? '') + apiResource.version;
+  type Row = { href: string; cells: any[]; combinedIdx: number };
+
+  interface Resource {
+    apiResource: v1.APIResource;
+    subtitle: string;
+
+    isError: boolean;
+
+    headerNames: string[];
+    rows: Row[];
   }
-  console.log('resourcetables', resourceTables);
+
+  function buildResource(rts: app.ResourceTable[]): Resource[] {
+    // For keyboard navigation, combinedIdx tracks the index of a row among all the tables.
+    let combinedIdx = 0;
+
+    return rts.map((rt) => {
+      let columnNames: string[] = [];
+      let rows: Row[] = [];
+
+      if (rt.table) {
+        columnNames = rt.table.columnDefinitions.map((cd) => cd.name);
+        rows = rt.table.rows.map((r, rIdx) => {
+          let name = rt.tableRowNames[rIdx];
+          let row = {
+            href: `/ctx/${ctx}/ns/${ns}/obj/${kindName(rt.apiResource.kind, name)}`,
+            cells: r.cells,
+            combinedIdx: combinedIdx
+          };
+
+          combinedIdx += 1;
+          return row;
+        });
+      }
+
+      return {
+        apiResource: rt.apiResource,
+        subtitle: (rt.apiResource.group ?? '') + rt.apiResource.version,
+        isError: rt.isError,
+        headerNames: columnNames,
+        rows: rows
+      };
+    });
+  }
+
+  function buildItems(resources: Resource[]): { href: string }[] {
+    return resources.map((r) => r.rows).reduce((a: Row[], b: Row[]) => a.concat(b), []);
+  }
+
+  let resources = buildResource(resourceTables);
+
+  // Keyboard navigation
+  let items = buildItems(resources);
+  let activeIdx = -1;
 </script>
 
-{#each resourceTables as rt}
-  {#if rt.isError}
-    <div class="notification is-danger">Error retrieving resource: {rt.apiResource.name}.</div>
+<svelte:window on:keydown={(e) => (activeIdx = keyboardListOnKeyDown(activeIdx, items, e))} />
+
+{#each resources as r}
+  {#if r.isError}
+    <div class="notification is-danger">Error retrieving resource: {r.apiResource.name}.</div>
   {/if}
 
-  {#if rt.table && rt.table.rows.length > 0}
-    <h1 class="title">{rt.apiResource.name}</h1>
-    <h2 class="subtitle">{resourceSubtitle(rt.apiResource)}</h2>
+  {#if r.rows.length > 0}
+    <h1 class="title">{r.apiResource.name}</h1>
+    <h2 class="subtitle">{r.subtitle}</h2>
+
     <table class="table">
       <tr>
-        {#each rt.table.columnDefinitions as cd}
-          <th>{cd.name}</th>
+        {#each r.headerNames as headerName}
+          <th>{headerName}</th>
         {/each}
       </tr>
 
-      {#each rt.table.rows as r, rIdx}
-        <tr>
-          {#each r.cells as cell, colIdx}
-            <td>
-              {#if colIdx == 0}
-                <a
-                  href="/ctx/{ctx}/ns/{ns}/obj/{kindName(
-                    rt.apiResource.kind,
-                    rt.tableRowNames[rIdx]
-                  )}">{cell}</a
-                >
-              {:else}
-                {cell}
-              {/if}
-            </td>
+      {#each r.rows as row}
+        <tr class:is-selected={activeIdx == row.combinedIdx}>
+          {#each row.cells as cell, colIdx}
+            {#if colIdx == 0}
+              <td>
+                <a href={row.href}>
+                  {cell}
+                </a>
+              </td>
+            {:else}
+              <td>{cell}</td>
+            {/if}
           {/each}
         </tr>
       {/each}
     </table>
-  {:else}
-    <p class="has-text-weight-light">no {rt.apiResource.name}</p>
   {/if}
 {/each}

@@ -5,9 +5,9 @@
 
   export let data: PageData;
 
-  function toItems(ctxList: string[]): { name: string; path: string }[] {
+  function toItems(ctxList: string[]): { name: string; href: string }[] {
     return ctxList.map((ctx) => {
-      return { name: ctx, path: `/ctx/${ctx}` };
+      return { name: ctx, href: `/ctx/${ctx}` };
     });
   }
 </script>

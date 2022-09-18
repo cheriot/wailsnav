@@ -20,6 +20,8 @@
       loading
     {:then resourceTables}
       <ResourceTables ctx={data.ctx} ns={data.ns} {resourceTables} />
+    {:catch reason}
+      <p>Error building table: {reason}</p>
     {/await}
   </div>
 </div>
