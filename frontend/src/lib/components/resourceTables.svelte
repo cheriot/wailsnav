@@ -97,5 +97,7 @@
         </tr>
       {/each}
     </table>
+  {:else}
+    <p class="has-text-weight-light	">no {r.apiResource.name}</p>
   {/if}
 {/each}

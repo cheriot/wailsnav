@@ -91,4 +91,4 @@ require (
 
 // replace github.com/wailsapp/wails/v2 v2.0.0-beta.44.2 => /Users/cheriot/go/pkg/mod/github.com/wailsapp/wails/v2@v2.0.0-beta.44.2
 
-replace github.com/cheriot/kubenav => ../kubenav
+// replace github.com/cheriot/kubenav => ../kubenav
