@@ -16,7 +16,20 @@
     });
     tab.isActive = true;
   }
+
+  function onKeyDown(event: KeyboardEvent) {
+    switch (event.code) {
+      case 'KeyD':
+        selectTab(describeTab);
+        break;
+      case 'KeyY':
+        selectTab(yamlTab);
+        break;
+    }
+  }
 </script>
+
+<svelte:window on:keydown={onKeyDown} />
 
 <Navigation ctx={data.ctx} ns={data.ns} kind={data.kind} title={data.name} />
 
