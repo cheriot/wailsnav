@@ -3,3 +3,12 @@ fmt:
 	go fmt
 	go vet
 	cd frontend && npm run format
+
+dev:
+	cd frontend && pnpm install
+	wails dev
+
+gin:
+	gcloud auth login
+gout:
+	gcloud auth revoke

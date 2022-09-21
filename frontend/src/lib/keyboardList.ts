@@ -7,9 +7,11 @@ export function keyboardListOnKeyDown(
 ): number {
   switch (event.code) {
     case 'KeyJ':
+      event.preventDefault();
       return (activeIdx + 1) % items.length;
       break;
     case 'KeyK':
+      event.preventDefault();
       if (activeIdx > 0 && items.length > 0) {
         return (activeIdx - 1) % items.length;
       } else {
@@ -17,6 +19,7 @@ export function keyboardListOnKeyDown(
       }
       break;
     case 'Enter':
+      event.preventDefault();
       if (activeIdx > -1 && items.length > 0) {
         goto(items[activeIdx].href).catch((reason) =>
           console.log('keyboardList goto failure', reason, items[activeIdx].href)

@@ -21,9 +21,11 @@
     switch (event.code) {
       case 'KeyD':
         selectTab(describeTab);
+        event.preventDefault();
         break;
       case 'KeyY':
         selectTab(yamlTab);
+        event.preventDefault();
         break;
     }
   }

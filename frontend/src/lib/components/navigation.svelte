@@ -69,16 +69,20 @@
   }
 
   let cmdInput: HTMLInputElement;
+  function inputOnKeyDown(event: KeyboardEvent) {
+    if (event.code == 'Escape') {
+      cmd = '';
+      cmdInput.blur();
+      event.preventDefault();
+    } else {
+      // don't let typing trigger other keyboard commands
+      event.stopPropagation();
+    }
+  }
   function onKeyDown(event: KeyboardEvent) {
-    switch (event.code) {
-      case 'Semicolon':
-        cmdInput.focus();
-        event.preventDefault();
-        break;
-      case 'Escape':
-        cmd = '';
-        cmdInput.blur();
-        break;
+    if (event.code == 'Semicolon') {
+      cmdInput.focus();
+      event.preventDefault();
     }
   }
 </script>
@@ -112,7 +116,13 @@
 
     <div class="navbar-item">
       <form on:submit|preventDefault={onSubmit}>
-        <input class="input" type="text" bind:value={cmd} bind:this={cmdInput} />
+        <input
+          class="input"
+          type="text"
+          bind:value={cmd}
+          bind:this={cmdInput}
+          on:keydown={inputOnKeyDown}
+        />
       </form>
     </div>
   </div>
