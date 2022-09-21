@@ -52,7 +52,7 @@
     {#await activeTab?.dataP}
       <p>loading</p>
     {:then dataStr}
-      <pre>{dataStr}</pre>
+      <pre style="white-space: pre-wrap">{dataStr}</pre>
     {/await}
   </div>
 </div>
