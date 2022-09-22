@@ -19,7 +19,11 @@
       breadcrumbs.push({ name: ns, href: `/ctx/${ctx}/ns/${ns}`, isActive: false });
     }
     if (kind) {
-      breadcrumbs.push({ name: kind, href: '', isActive: false });
+      breadcrumbs.push({
+        name: kind,
+        href: `/ctx/${ctx}/ns/${ns}/query?q=${kind}`,
+        isActive: false
+      });
     }
     if (title) {
       breadcrumbs.push({ name: title, href: '', isActive: false });
