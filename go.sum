@@ -467,8 +467,8 @@ github.com/valyala/fasttemplate v1.2.1 h1:TVEnxayobAdVkhQfrfes2IzOB6o+z4roRkPF52
 github.com/valyala/fasttemplate v1.2.1/go.mod h1:KHLXt3tVN2HBp8eijSv/kGJopbvo7S+qRAEEKiv+SiQ=
 github.com/wailsapp/mimetype v1.4.1 h1:pQN9ycO7uo4vsUUuPeHEYoUkLVkaRntMnHJxVwYhwHs=
 github.com/wailsapp/mimetype v1.4.1/go.mod h1:9aV5k31bBOv5z6u+QP8TltzvNGJPmNJD4XlAL3U+j3o=
-github.com/wailsapp/wails/v2 v2.0.0-rc.1.1 h1:oanYrSVD/0ONXOEI4BHUctSYf3Di/bbE8U9oJtwXmKM=
-github.com/wailsapp/wails/v2 v2.0.0-rc.1.1/go.mod h1:z3os4dBFCOmPhFHjjEKY4KygTVFKAGECkS9/mKm1wEU=
+github.com/wailsapp/wails/v2 v2.0.0 h1:EsiIMQYi3XeAJvvJNYTWVSyaEYwuBsSFU9ACSq7Ly4s=
+github.com/wailsapp/wails/v2 v2.0.0/go.mod h1:z3os4dBFCOmPhFHjjEKY4KygTVFKAGECkS9/mKm1wEU=
 github.com/xlab/treeprint v0.0.0-20181112141820-a009c3971eca h1:1CFlNzQhALwjS9mBAUkycX616GzgsuYUOCHA5+HSlXI=
 github.com/xlab/treeprint v0.0.0-20181112141820-a009c3971eca/go.mod h1:ce1O1j6UtZfjr22oyGxGLbauSBp2YVXpARAosm7dHBg=
 github.com/yuin/goldmark v1.1.25/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=

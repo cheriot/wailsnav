@@ -7,8 +7,3 @@ fmt:
 dev:
 	cd frontend && pnpm install
 	wails dev
-
-gin:
-	gcloud auth login
-gout:
-	gcloud auth revoke

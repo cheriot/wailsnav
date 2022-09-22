@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/cheriot/kubenav v0.1.1
-	github.com/wailsapp/wails/v2 v2.0.0-rc.1.1
+	github.com/wailsapp/wails/v2 v2.0.0
 )
 
 require (
