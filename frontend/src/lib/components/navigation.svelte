@@ -69,7 +69,7 @@
   }
 
   let cmdInput: HTMLInputElement;
-  function inputOnKeyDown(event: KeyboardEvent) {
+  function onKeyDownInput(event: KeyboardEvent) {
     if (event.code == 'Escape') {
       cmd = '';
       cmdInput.blur();
@@ -79,15 +79,22 @@
       event.stopPropagation();
     }
   }
-  function onKeyDown(event: KeyboardEvent) {
+
+  function onKeyDownGlobal(event: KeyboardEvent) {
     if (event.code == 'Semicolon') {
       cmdInput.focus();
+      event.preventDefault();
+    } else if (event.code == 'BracketLeft') {
+      history.back();
+      event.preventDefault();
+    } else if (event.code == 'BracketRight') {
+      history.forward();
       event.preventDefault();
     }
   }
 </script>
 
-<svelte:window on:keydown={onKeyDown} />
+<svelte:window on:keydown={onKeyDownGlobal} />
 
 <nav class="navbar" aria-label="main navigation">
   <div class="navbar-start">
@@ -121,7 +128,7 @@
           type="text"
           bind:value={cmd}
           bind:this={cmdInput}
-          on:keydown={inputOnKeyDown}
+          on:keydown={onKeyDownInput}
         />
       </form>
     </div>
