@@ -133,6 +133,10 @@
           bind:value={cmd}
           bind:this={cmdInput}
           on:keydown={onKeyDownInput}
+          spellcheck="false"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="off"
         />
       </form>
     </div>

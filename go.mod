@@ -3,7 +3,7 @@ module wailsnav
 go 1.19
 
 require (
-	github.com/cheriot/kubenav v0.1.1
+	github.com/cheriot/kubenav v0.1.2
 	github.com/wailsapp/wails/v2 v2.0.0
 )
 
