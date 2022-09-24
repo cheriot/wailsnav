@@ -1,6 +1,5 @@
 <script lang="ts">
   import type { PageData } from './$types';
-  import Navigation from '$lib/components/navigation.svelte';
   import SimpleList from '$lib/components/simpleList.svelte';
 
   export let data: PageData;

@@ -6,14 +6,14 @@ export const load: PageLoad = async (pageLoad) => {
   const { ctx, ns, kindName } = pageLoad.params;
   const { kind, name } = fromKindName(kindName);
 
-  let describeP: Promise<string>
-  let yamlP: Promise<string>
+  let describeP: Promise<string>;
+  let yamlP: Promise<string>;
   if (kind && name) {
-    describeP = Describe(ctx, ns, kind, name),
-      yamlP = Yaml(ctx, ns, kind, name)
+    describeP = Describe(ctx, ns, kind, name)
+    yamlP = Yaml(ctx, ns, kind, name)
   } else {
-    describeP = Promise.reject('invalid kindname: ' + kindName),
-      yamlP = Promise.reject('invalid kindname: ' + kindName)
+    describeP = Promise.reject('invalid kindname: ' + kindName)
+    yamlP = Promise.reject('invalid kindname: ' + kindName)
   }
 
   return {
@@ -21,7 +21,9 @@ export const load: PageLoad = async (pageLoad) => {
     ns: ns,
     kind: kind,
     name: name,
-    describeP: describeP,
-    yamlP: yamlP
+    tabs: {
+      describeP: describeP,
+      yamlP: yamlP
+    }
   };
 };

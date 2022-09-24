@@ -47,20 +47,16 @@
           } else {
             return goto(`/`);
           }
-          break;
         case 'query':
           return goto(`/ctx/${ctx}/ns/${r.ns}/query?q=${r.query}`);
-          break;
         case 'obj':
           if (r.kind == 'Namespace') {
             return goto(`/ctx/${ctx}/ns/${r.name}`);
           } else {
             return goto(`/ctx/${ctx}/ns/${ns}/obj/${kindName(r.kind, r.name)}`);
           }
-          break;
         case 'err':
           return Promise.reject(r.error);
-          break;
       }
     });
 
@@ -105,10 +101,10 @@
     <div class="navbar-item">
       <div class="field has-addons">
         <p class="control">
-          <button class="button" on:click={(e) => history.back()}>&lt;</button>
+          <button class="button" on:click={() => history.back()}>&lt;</button>
         </p>
         <p class="control">
-          <button class="button" on:click={(e) => history.forward()}>&gt;</button>
+          <button class="button" on:click={() => history.forward()}>&gt;</button>
         </p>
       </div>
     </div>

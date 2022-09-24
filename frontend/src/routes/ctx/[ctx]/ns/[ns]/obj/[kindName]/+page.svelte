@@ -4,13 +4,15 @@
 
   export let data: PageData;
 
-  let describeTab = { isActive: true, name: 'Describe', dataP: data.describeP };
-  let yamlTab = { isActive: false, name: 'Yaml', dataP: data.yamlP };
+  console.log('data.', data.tabs.describeP, data.tabs.yamlP);
+
+  let describeTab = { isActive: true, name: 'Describe', dataP: data.tabs.describeP };
+  let yamlTab = { isActive: false, name: 'Yaml', dataP: data.tabs.yamlP };
   let tabs = [describeTab, yamlTab];
   $: activeTab = tabs.find((tab) => tab.isActive);
 
   function selectTab(
-    event: KeyboardEvent,
+    event: Event,
     tab: { isActive: boolean; name: string; dataP: Promise<string> }
   ) {
     // prevents the 'boop' sound that the desktop app makes when hitting a key that doesn't do anything
@@ -45,7 +47,12 @@
       <ul>
         {#each tabs as tab}
           <li class:is-active={tab.isActive}>
-            <a href="" on:click={selectTab(tab)}>{tab.name}</a>
+            <a
+              href=""
+              on:click={(e) => {
+                selectTab(e, tab);
+              }}>{tab.name}</a
+            >
           </li>
         {/each}
       </ul>

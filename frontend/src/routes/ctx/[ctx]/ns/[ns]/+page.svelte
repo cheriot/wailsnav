@@ -1,15 +1,9 @@
 <script lang="ts">
-  import type { v1 } from '$lib/wailsjs/go/models';
   import type { PageData } from './$types';
-  import { kindName } from '$lib/urls';
   import Navigation from '$lib/components/navigation.svelte';
   import ResourceTables from '$lib/components/resourceTables.svelte';
 
   export let data: PageData;
-
-  function resourceSubtitle(apiResource: v1.APIResource) {
-    return (apiResource.group ?? '') + apiResource.version;
-  }
 </script>
 
 <Navigation ctx={data.ctx} ns={data.ns} />
