@@ -6,28 +6,22 @@ export const load: PageLoad = async (pageLoad) => {
   const { ctx, ns, kindName } = pageLoad.params;
   const { kind, name } = fromKindName(kindName);
 
-  const data = {
+  let describeP: Promise<string>
+  let yamlP: Promise<string>
+  if (kind && name) {
+    describeP = Describe(ctx, ns, kind, name),
+      yamlP = Yaml(ctx, ns, kind, name)
+  } else {
+    describeP = Promise.reject('invalid kindname: ' + kindName),
+      yamlP = Promise.reject('invalid kindname: ' + kindName)
+  }
+
+  return {
     ctx: ctx,
     ns: ns,
     kind: kind,
-    name: name
+    name: name,
+    describeP: describeP,
+    yamlP: yamlP
   };
-
-  if (kind && name) {
-    return {
-      ...data,
-      ...{
-        describeP: Describe(ctx, ns, kind, name),
-        yamlP: Yaml(ctx, ns, kind, name)
-      }
-    };
-  } else {
-    return {
-      ...data,
-      ...{
-        describeP: Promise.reject('invalid kindname: ' + kindName),
-        yamlP: Promise.reject('invalid kindname: ' + kindName)
-      }
-    };
-  }
 };

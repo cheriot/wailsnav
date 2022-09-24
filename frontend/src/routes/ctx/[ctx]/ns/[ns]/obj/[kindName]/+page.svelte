@@ -9,7 +9,13 @@
   let tabs = [describeTab, yamlTab];
   $: activeTab = tabs.find((tab) => tab.isActive);
 
-  function selectTab(tab: { isActive: boolean; name: string; dataP: Promise<string> }) {
+  function selectTab(
+    event: KeyboardEvent,
+    tab: { isActive: boolean; name: string; dataP: Promise<string> }
+  ) {
+    // prevents the 'boop' sound that the desktop app makes when hitting a key that doesn't do anything
+    event.preventDefault();
+
     tabs = tabs.map((t) => {
       t.isActive = false;
       return t;
@@ -18,15 +24,10 @@
   }
 
   function onKeyDown(event: KeyboardEvent) {
-    switch (event.code) {
-      case 'KeyD':
-        selectTab(describeTab);
-        event.preventDefault();
-        break;
-      case 'KeyY':
-        selectTab(yamlTab);
-        event.preventDefault();
-        break;
+    if (event.code == 'KeyD') {
+      selectTab(event, describeTab);
+    } else if (event.code == 'KeyY') {
+      selectTab(event, yamlTab);
     }
   }
 </script>
