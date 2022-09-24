@@ -35,8 +35,8 @@ export function keyboardListOnKeyDown(
 
   if (currentIdx != activeIdx) {
     // Scroll to the active item.
-    let activeItem = items[activeIdx];
-    let activeElement = document.querySelector(`[href='${activeItem.href}']`);
+    const activeItem = items[activeIdx];
+    const activeElement = document.querySelector(`[href='${activeItem.href}']`);
     if (activeElement) {
       activeElement.scrollIntoView(false);
     } else {

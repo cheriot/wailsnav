@@ -9,11 +9,11 @@ export const load: PageLoad = async (pageLoad) => {
   let describeP: Promise<string>;
   let yamlP: Promise<string>;
   if (kind && name) {
-    describeP = Describe(ctx, ns, kind, name)
-    yamlP = Yaml(ctx, ns, kind, name)
+    describeP = Describe(ctx, ns, kind, name);
+    yamlP = Yaml(ctx, ns, kind, name);
   } else {
-    describeP = Promise.reject('invalid kindname: ' + kindName)
-    yamlP = Promise.reject('invalid kindname: ' + kindName)
+    describeP = Promise.reject('invalid kindname: ' + kindName);
+    yamlP = Promise.reject('invalid kindname: ' + kindName);
   }
 
   return {
