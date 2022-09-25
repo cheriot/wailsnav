@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { PageData } from './$types';
-  import SimpleList from '$lib/components/simpleList.svelte';
+  import MenuList from '$lib/components/menuList.svelte';
 
   export let data: PageData;
 
@@ -18,7 +18,7 @@
     {#await data.ctxListP}
       loading
     {:then ctxList}
-      <SimpleList items={toItems(ctxList)} />
+      <MenuList items={toItems(ctxList)} />
     {/await}
   </div>
 </div>

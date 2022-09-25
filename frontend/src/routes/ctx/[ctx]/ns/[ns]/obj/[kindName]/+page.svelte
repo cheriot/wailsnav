@@ -4,8 +4,6 @@
 
   export let data: PageData;
 
-  console.log('data.', data.tabs.describeP, data.tabs.yamlP);
-
   let describeTab = { isActive: true, name: 'Describe', dataP: data.tabs.describeP };
   let yamlTab = { isActive: false, name: 'Yaml', dataP: data.tabs.yamlP };
   let tabs = [describeTab, yamlTab];
@@ -15,7 +13,7 @@
     event: Event,
     tab: { isActive: boolean; name: string; dataP: Promise<string> }
   ) {
-    // prevents the 'boop' sound that the desktop app makes when hitting a key that doesn't do anything
+    // prevents the 'boop' sound the desktop app makes when hitting a key that doesn't do anything
     event.preventDefault();
 
     tabs = tabs.map((t) => {
