@@ -1,11 +1,15 @@
 import type { PageLoad } from './$types';
-import { ResourceList } from '$lib/wailsjs/go/main/Kube';
+import { ResourceList, Describe, Yaml } from '$lib/wailsjs/go/main/Kube';
 
 export const load: PageLoad = async (pageLoad) => {
   const { ctx, ns } = pageLoad.params;
   return {
     ctx: ctx,
     ns: ns,
-    resourceTablesP: ResourceList(ctx, ns, 'all')
+    tabs: {
+      resourceTablesP: ResourceList(ctx, ns, 'all'),
+      describeP: Describe(ctx, ns, 'Namespace', ns),
+      yamlP: Yaml(ctx, ns, 'Namespace', ns)
+    }
   };
 };
