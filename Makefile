@@ -7,5 +7,6 @@ fmt:
 	cd frontend && npm run check
 
 dev:
+	nvm use
 	cd frontend && pnpm install
 	wails dev

@@ -18,7 +18,7 @@
     <h1 class="title">{data.name}</h1>
     <h2 class="subtitle">{data.kind}</h2>
 
-    <PrimaryTabs bind:activeTab tabs={['Describe', 'Yaml']} />
+    <PrimaryTabs bind:activeTab {tabs} />
 
     {#await dataPromises[activeIdx]}
       <p>loading</p>
