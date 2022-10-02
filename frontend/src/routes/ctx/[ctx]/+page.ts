@@ -5,6 +5,8 @@ export const load: PageLoad = async (pageLoad) => {
   const ctx = pageLoad.params.ctx;
   return {
     ctx: ctx,
-    nsListP: NamespaceList(ctx)
+    remote: {
+      nsListP: NamespaceList(ctx)
+    },
   };
 };

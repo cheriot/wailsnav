@@ -19,7 +19,7 @@
     <h1 class="title">{data.ctx} overview</h1>
 
     <div class="menu">
-      {#await data.nsListP}
+      {#await data.remote.nsListP}
         loading
       {:then nsList}
         <MenuList items={toItems(nsList)} />
