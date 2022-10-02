@@ -25,24 +25,17 @@
       {/await}
     {/if}
 
-    {#if activeTab == 'Describe'}
-      {#await data.tabs.describeP}
-        <p>loading</p>
-      {:then dataStr}
-        <pre style="white-space: pre-wrap">{dataStr}</pre>
-      {:catch reason}
-        <p>Error describing: {reason}</p>
-      {/await}
-    {/if}
-
-    {#if activeTab == 'Yaml'}
-      {#await data.tabs.yamlP}
-        <p>loading</p>
-      {:then dataStr}
-        <pre style="white-space: pre-wrap">{dataStr}</pre>
-      {:catch reason}
-        <p>Error fetching yaml: {reason}</p>
-      {/await}
-    {/if}
+    {#await data.tabs.resourceP}
+      <p>loading</p>
+    {:then resource}
+      {#if activeTab == 'Describe'}
+        <pre style="white-space: pre-wrap">{resource.describe}</pre>
+      {/if}
+      {#if activeTab == 'Yaml'}
+        <pre style="white-space: pre-wrap">{resource.yaml}</pre>
+      {/if}
+    {:catch reason}
+      <p>Error fetching resource: {reason}</p>
+    {/await}
   </div>
 </div>

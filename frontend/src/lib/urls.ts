@@ -12,3 +12,7 @@ export function fromKindName(kindName: string) {
   console.log('fromKindName valid parameter: ', kindName, parts);
   return { kind: parts[0], name: parts[1] };
 }
+
+export function resourceURI(ctx: string, ns: string, kind: string, name: string): string {
+  return `/ctx/${ctx}/ns/${ns}/obj/${kindName(kind, name)}`;
+}

@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/cheriot/kubenav/pkg/app"
 
@@ -12,7 +13,7 @@ type Kube struct {
 	ctx context.Context
 }
 
-// OnStarup is called at application startup
+// OnStartup is called at application startup
 func (k *Kube) OnStartup(ctx context.Context) {
 	k.ctx = ctx
 }
@@ -56,36 +57,26 @@ func (k *Kube) ResourceList(ctx string, ns string, query string) []app.ResourceT
 	return resourceTables
 }
 
-func (k *Kube) Describe(ctx string, ns string, kind string, name string) string {
+func (k *Kube) Resource(ctx string, ns string, kind string, name string) app.KubeObject {
 	kubeCluster, err := app.GetOrMakeKubeCluster(k.ctx, ctx)
 	if err != nil {
 		wailsruntime.LogErrorf(k.ctx, "error getting cluster for name %s: %s", ctx, err.Error())
-		return ""
+		return app.KubeObject{
+			Errors: []error{fmt.Errorf("error getting cluster for name %s: %w", ctx, err)},
+		}
 	}
 
-	describeStr, err := kubeCluster.Describe(k.ctx, ns, kind, name)
+	ko, err := kubeCluster.GetResource(k.ctx, ns, kind, name)
 	if err != nil {
-		wailsruntime.LogErrorf(k.ctx, "error describing %s %s %s %s: %+v", ctx, ns, kind, name, err)
-		return ""
+		return app.KubeObject{
+			Errors: []error{fmt.Errorf("unable to GetResource %s %s %s %s: %w", ctx, ns, kind, name, err)},
+		}
 	}
 
-	return describeStr
-}
+	wailsruntime.LogErrorf(k.ctx, "KubeObject %+v\n", *ko)
+	fmt.Printf("KubeObject %+v\n", *ko)
 
-func (k *Kube) Yaml(ctx string, ns string, kind string, name string) string {
-	kubeCluster, err := app.GetOrMakeKubeCluster(k.ctx, ctx)
-	if err != nil {
-		wailsruntime.LogErrorf(k.ctx, "error getting cluster for name %s: %s", ctx, err.Error())
-		return ""
-	}
-
-	yamlStr, err := kubeCluster.Yaml(k.ctx, ns, kind, name)
-	if err != nil {
-		wailsruntime.LogErrorf(k.ctx, "error getting yaml for %s %s %s %s: %s", ctx, ns, kind, name, err.Error())
-		return ""
-	}
-
-	return yamlStr
+	return *ko
 }
 
 func (k *Kube) Command(ctx string, ns string, query string, cmd string) app.CommandResult {
